@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function ListaFilmes() {
+export default function MovieList() {
   return (
     <ScreenContainer>
       <Header>CINEFLEX</Header>
@@ -16,7 +16,7 @@ export default function ListaFilmes() {
 }
 
 const ScreenContainer = styled.div`
-  width:100%;
+  width:400px;
   min-width: 400px;
   min-height: 100vh;
   background-color: #e5e5e5;
@@ -31,7 +31,7 @@ const ScreenContainer = styled.div`
 
 const Title = styled.p`
   height: 110px;
-  width:100%;
+  width:400px;
   min-width: 400px;
   padding-top: 50px;
   padding-bottom: 20px;
@@ -46,7 +46,7 @@ const Title = styled.p`
 `;
 
 const Header = styled.header`
-  width:100%;
+  width:400px;
   min-width: 400px;
   min-height: 50px;
   background-color: #c3cfd9;

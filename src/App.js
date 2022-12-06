@@ -1,12 +1,21 @@
 import styled from "styled-components";
-import ListaFilmes from "./components/ListaFilme";
+import MovieList from "./components/MovieList";
+import Schedule from "./components/Schedule";
 
 export default function App() {
   return (
-    <div >
-      <ListaFilmes/>
-    </div>
+    <Container >
+      {/* <MovieList/> */}
+      <Schedule/>
+    </Container>
   );
 }
+
+const Container = styled.div`
+display:flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+`
 
 
