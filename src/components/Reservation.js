@@ -3,22 +3,23 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Seat from "./Seat";
 
 export default function Reservation() {
   const { idSessao } = useParams();
-  const [seat, setSeat] = useState(undefined);
+  const [reserve, setReserve] = useState(undefined);
 
   useEffect(() => {
     const request = axios.get(
       `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
     );
     request.then((res) => {
-      setSeat(res.data);
+      setReserve(res.data);
     });
     request.catch((res) => console.log(res.data));
   }, []);
 
-  if (seat === undefined) {
+  if (reserve === undefined) {
     return <p>loading...</p>;
   }
 
@@ -30,70 +31,14 @@ export default function Reservation() {
       <Title>Selecione o(s) assento(s)</Title>
 
       <SeatList>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>05</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>05</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>05</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>05</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
+        {reserve.seats.map((seat) => (
+          <Seat 
+          key={seat.id}
+          name={seat.name}
+          isAvailable={seat.isAvailable}
+          
+          />
+        ))}
       </SeatList>
 
       <Comment>
@@ -120,10 +65,11 @@ export default function Reservation() {
 
       <Footer>
         <Poster>
-          <img src={""} alt="Poster do filme" />
+          <img src={reserve.movie.posterURL} alt="Poster do filme" />
         </Poster>
         <p>
-          {"sessions.title"} <br /> {"quinta feira"}
+          {reserve.movie.title} <br />{" "}
+          {`${reserve.day.weekday}-${reserve.name} `}
         </p>
       </Footer>
     </ScreenContainer>
@@ -230,7 +176,7 @@ const SeatList = styled.div`
   font-size: 11px;
   line-height: 13px;
   color: #000000;
-  button {
+  /* button {
     width: 26px;
     height: 26px;
     background: #c3cfd9;
@@ -240,7 +186,7 @@ const SeatList = styled.div`
     align-items: center;
     justify-content: center;
     margin: 6px;
-  }
+  } */
 `;
 
 const Comment = styled.div`
