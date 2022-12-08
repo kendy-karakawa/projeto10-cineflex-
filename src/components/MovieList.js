@@ -29,7 +29,7 @@ export default function MovieList() {
 
       {items.map((item) => (
         <Poster key={item.id}>
-          <Link to="/sessoes/item.id">
+          <Link to={`/sessoes/${item.id}`}>
             <img src={item.posterURL} alt="Poster do filme" />
           </Link>
         </Poster>

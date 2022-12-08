@@ -1,26 +1,53 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Schedule() {
+  const { idFilme } = useParams();
+  const [sessions, setSessions] = useState(undefined);
+
+  useEffect(() => {
+    const request = axios.get(
+      `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`
+    );
+    request.then((res) => {
+      setSessions(res.data);
+    });
+    request.catch((res) => console.log(res.data));
+  }, []);
+
+  if (sessions === undefined) {
+    return <p>loading...</p>;
+  }
+
   return (
     <ScreenContainer>
-      <Header>CINEFLEX</Header>
+      <Link to="/">
+        <Header>CINEFLEX</Header>
+      </Link>
 
       <Title>Selecione o horário</Title>
 
-      <ScheduleContainer>
-        ssssssssssssssss
-      <Button>
-        <button>xx</button>
-        <button>xx</button>
-      </Button>
-      </ScheduleContainer>
-      
-      
+      {sessions.days.map((ses) => (
+        <ScheduleContainer key={ses.id}>
+          {ses.weekday}
+          <Button>
+            {ses.showtimes.map((time) => (
+              <Link to={`/assentos/${time.id}`}>
+                <button key={time.id}>{time.name}</button>
+              </Link>
+            ))}
+          </Button>
+        </ScheduleContainer>
+      ))}
+
       <Footer>
         <Poster>
-          <img src="" alt="" />
+          <img src={sessions.posterURL} alt="Poster do filme" />
         </Poster>
-        <p>ssssssssss</p>
+        <p>{sessions.title}</p>
       </Footer>
     </ScreenContainer>
   );
@@ -32,7 +59,7 @@ const ScreenContainer = styled.div`
   min-height: 100vh;
   background-color: #e5e5e5;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   margin: 0px;
@@ -93,19 +120,20 @@ const Button = styled.div`
   width: 400px;
   min-width: 400px;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   font-family: "Roboto";
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
   color: #ffffff;
-  
+
   button {
     width: 83px;
     height: 43px;
     background: #e8833a;
     border-radius: 3px;
-    margin-right:10px;
+    margin-right: 10px;
     margin-top: 20px;
   }
 `;
@@ -148,5 +176,3 @@ const Poster = styled.div`
     height: 72px;
   }
 `;
-
-
