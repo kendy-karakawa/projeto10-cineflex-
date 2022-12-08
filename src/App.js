@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MovieList from "./components/MovieList";
 import Schedule from "./components/Schedule";
+import Reservation from "./components/Reservation";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
       <Routes>
       <Route path="/" element={<MovieList/>} />
       <Route path="/sessoes/:idFilme" element={<Schedule/>} />
-      <Route path="/assentos/:idSessao" element={<Schedule/>} />
+      <Route path="/assentos/:idSessao" element={<Reservation/>} />
       <Route path="/sucesso" element={<Schedule/>} />
       </Routes>
     </Container>
