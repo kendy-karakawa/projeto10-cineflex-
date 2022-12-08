@@ -3,6 +3,7 @@ import MovieList from "./components/MovieList";
 import Schedule from "./components/Schedule";
 import Reservation from "./components/Reservation";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Success from "./components/Success";
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
       <Route path="/" element={<MovieList/>} />
       <Route path="/sessoes/:idFilme" element={<Schedule/>} />
       <Route path="/assentos/:idSessao" element={<Reservation/>} />
-      <Route path="/sucesso" element={<Schedule/>} />
+      <Route path="/sucesso" element={<Success/>} />
       </Routes>
     </Container>
     </BrowserRouter>

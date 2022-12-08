@@ -32,12 +32,7 @@ export default function Reservation() {
 
       <SeatList>
         {reserve.seats.map((seat) => (
-          <Seat 
-          key={seat.id}
-          name={seat.name}
-          isAvailable={seat.isAvailable}
-          
-          />
+          <Seat key={seat.id} name={seat.name} isAvailable={seat.isAvailable} />
         ))}
       </SeatList>
 
@@ -61,6 +56,7 @@ export default function Reservation() {
         <input placeholder="Digite seu nome..."></input>
         <p>CPF do comprador:</p>
         <input placeholder="Digite seu CPF..."></input>
+        <Link to="/sucesso" ><button>Reservar assento(s)</button></Link>
       </Data>
 
       <Footer>
@@ -245,8 +241,13 @@ const Unavailable = styled.button`
 
 const Data = styled.div`
   width: 400px;
-  padding: 10px;
+  padding: 24px;
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration:none;
+
   p {
     font-family: "Roboto";
     font-style: normal;
@@ -272,4 +273,30 @@ const Data = styled.div`
     display: flex;
     align-items: center;
   }
+  a{
+    text-decoration:none;
+  }
+  button {
+    width: 225px;
+    height: 42px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: #e8833a;
+    border-radius: 3px;
+    margin-top: 50px;
+    margin-left: 48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+  }
 `;
+
