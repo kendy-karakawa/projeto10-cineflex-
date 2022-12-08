@@ -1,22 +1,45 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function MovieList() {
+  const [items, setItems] = useState(undefined);
+
+  useEffect(() => {
+    const request = axios.get(
+      "https://mock-api.driven.com.br/api/v8/cineflex/movies"
+    );
+    request.then((resposta) => {
+      setItems(resposta.data);
+    });
+    request.catch((resposta) => console.log(resposta.data));
+  }, []);
+
+  if (items === undefined) {
+    return <p>loading...</p>;
+  }
+
   return (
     <ScreenContainer>
-      <Header>CINEFLEX</Header>
+      <Link to="/">
+        <Header>CINEFLEX</Header>
+      </Link>
       <Title>Selecione o filme</Title>
-      <Poster><img src="" alt="" /></Poster>
-      <Poster><img src="" alt="" /></Poster>
-      <Poster><img src="" alt="" /></Poster>
-      <Poster><img src="" alt="" /></Poster>
-      <Poster><img src="" alt="" /></Poster>
-      <Poster><img src="" alt="" /></Poster>
+
+      {items.map((item) => (
+        <Poster key={item.id}>
+          <Link to="/sessoes/item.id">
+            <img src={item.posterURL} alt="Poster do filme" />
+          </Link>
+        </Poster>
+      ))}
     </ScreenContainer>
   );
 }
 
 const ScreenContainer = styled.div`
-  width:400px;
+  width: 400px;
   min-width: 400px;
   min-height: 100vh;
   background-color: #e5e5e5;
@@ -31,7 +54,7 @@ const ScreenContainer = styled.div`
 
 const Title = styled.p`
   height: 110px;
-  width:400px;
+  width: 400px;
   min-width: 400px;
   padding-top: 50px;
   padding-bottom: 20px;
@@ -46,7 +69,7 @@ const Title = styled.p`
 `;
 
 const Header = styled.header`
-  width:400px;
+  width: 400px;
   min-width: 400px;
   min-height: 50px;
   background-color: #c3cfd9;
@@ -57,6 +80,7 @@ const Header = styled.header`
   justify-content: center;
   font-family: "Roboto";
   font-weight: 400;
+  text-decoration: none;
   font-size: 34px;
   color: #e8833a;
   padding: 10px;
@@ -77,6 +101,5 @@ const Poster = styled.div`
   img {
     width: 129px;
     height: 193px;
-    
   }
 `;

@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import MovieList from "./components/MovieList";
 import Schedule from "./components/Schedule";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
+    <BrowserRouter>
     <Container >
-      {/* <MovieList/> */}
-      <Schedule/>
+      <Routes>
+      <Route path="/" element={<MovieList/>} />
+      <Route path="/sessoes/:idFilme" element={<Schedule/>} />
+      <Route path="/assentos/:idSessao" element={<Schedule/>} />
+      <Route path="/sucesso" element={<Schedule/>} />
+      </Routes>
     </Container>
+    </BrowserRouter>
   );
 }
 
