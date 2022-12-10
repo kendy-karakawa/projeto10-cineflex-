@@ -5,19 +5,22 @@ const AVAILABLE = "#C3CFD9"
 const UNAVAILABLE = "#FBE192"
 const SELECTED = "#1AAE9E"
 
-export default function Seat({ name, isAvailable, SeatId, ids, setIds }) {
+export default function Seat({ name, isAvailable, SeatId, ids, setIds,seatList,setSeatList }) {
   const [select, setSelect] = useState(false)
-    console.log(ids)
-
-    function selectColor() {
+    
+    // console.log(isAvailable)
+    function selectColor(n) {
     if(select === false){
         setSelect(true)
         setIds([...ids, SeatId])
+        setSeatList([...seatList, n])
         
      }else {
         setSelect(false)
         const newList = ids.filter((id)=> id !== SeatId)
         setIds(newList)
+        const newSeatList = seatList.filter((name)=> name != n)
+        setSeatList(newSeatList)
      }
   }
   
@@ -25,8 +28,8 @@ export default function Seat({ name, isAvailable, SeatId, ids, setIds }) {
     <>
     {isAvailable === true ? 
     <Button buttonColor={UNAVAILABLE} onClick={()=> alert("Esse assento não está disponível")}>{name}</Button>  : !select ? 
-    <Button buttonColor={AVAILABLE} onClick={selectColor}>{name}</Button> : 
-    <Button buttonColor={SELECTED} onClick={selectColor}>{name}</Button>
+    <Button buttonColor={AVAILABLE} onClick={()=>selectColor(name)}>{name}</Button> : 
+    <Button buttonColor={SELECTED} onClick={()=>selectColor(name)}>{name}</Button>
     }
       
     </>

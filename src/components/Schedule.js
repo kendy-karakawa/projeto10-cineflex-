@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
+
 export default function Schedule() {
   const { idFilme } = useParams();
   const [sessions, setSessions] = useState(undefined);

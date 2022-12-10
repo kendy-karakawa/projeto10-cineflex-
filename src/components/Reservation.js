@@ -1,17 +1,15 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Seat from "./Seat";
 
-export default function Reservation() {
+export default function Reservation({name,setName,cpf,setCpf,ids,setIds,setReservationDate}) {
   const { idSessao } = useParams();
   const [reserve, setReserve] = useState(undefined);
-  const [name, setName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [ids, setIds] = useState([]);
-  const navigate = useNavigate("/Success");
+  const [seatList, setSeatList] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     const request = axios.get(
@@ -30,14 +28,26 @@ export default function Reservation() {
   function reservation(event) {
     event.preventDefault();
     const reserveDate = { ids, name, cpf };
+    console.log(reserveDate)
     const url =
       "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
 
     const promise = axios.post(url, reserveDate);
-    promise.then((res) => console.log(res.data));
-    //promise.then(()=> navigate)
-
+    //promise.then((res) => console.log(res.data));
+    // promise.then(()=> navigate("/sucesso"))
+    promise.then(postThen)
     promise.catch((res) => console.log(res.response.data));
+
+    
+  }
+
+  function postThen(res){
+    setReservationDate({title:reserve.movie.title , date:reserve.day.date ,time:reserve.name  ,seats:seatList , name, cpf})
+    navigate("/sucesso")
+    setName("")
+    setCpf("")
+    setIds([])
+
   }
 
   return (
@@ -56,6 +66,8 @@ export default function Reservation() {
             SeatId={seat.id}
             ids={ids}
             setIds={setIds}
+            seatList={seatList}
+            setSeatList={setSeatList}
           />
         ))}
       </SeatList>
@@ -84,6 +96,7 @@ export default function Reservation() {
           placeholder="Digite seu nome..."
           onChange={(e) => setName(e.target.value)}
           required
+          
         />
         <label htmlFor="cpf">CPF do comprador:</label>
         <input
