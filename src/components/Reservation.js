@@ -96,7 +96,7 @@ export default function Reservation({name,setName,cpf,setCpf,ids,setIds,setReser
           placeholder="Digite seu nome..."
           onChange={(e) => setName(e.target.value)}
           required
-          
+          data-test="client-name"
         />
         <label htmlFor="cpf">CPF do comprador:</label>
         <input
@@ -106,12 +106,13 @@ export default function Reservation({name,setName,cpf,setCpf,ids,setIds,setReser
           placeholder="Digite seu CPF..."
           onChange={(e) => setCpf(e.target.value)}
           required
+          data-test="client-cpf"
         />
 
-        <button type="submit">Reservar assento(s)</button>
+        <button data-test="book-seat-btn" type="submit">Reservar assento(s)</button>
       </ReservationFoms>
 
-      <Footer>
+      <Footer data-test="footer">
         <Poster>
           <img src={reserve.movie.posterURL} alt="Poster do filme" />
         </Poster>

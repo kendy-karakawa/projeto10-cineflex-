@@ -28,7 +28,7 @@ export default function MovieList() {
       <Title>Selecione o filme</Title>
 
       {items.map((item) => (
-        <Poster key={item.id}>
+        <Poster key={item.id} data-test="movie">
           <Link to={`/sessoes/${item.id}`}>
             <img src={item.posterURL} alt="Poster do filme" />
           </Link>

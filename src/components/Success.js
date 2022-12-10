@@ -17,25 +17,25 @@ export default function Success({reservationDate}) {
       </Title>
 
       <Main>
-        <div>
+        <div data-test="movie-info">
           <h1>Filme e sessão</h1>
           <p>{reservationDate.title}</p>
           <p>{`${reservationDate.date} ${reservationDate.time}`}</p>
         </div>
 
-        <div>
+        <div data-test="seats-info">
           <h1>Ingressos</h1>
           {reservationDate.seats.map((id)=> <p key={id}>{`assento ${id}`}</p>)}
           
         </div>
 
-        <div>
+        <div data-test="client-info">
           <h1>Comprador</h1>
           <p>{`Nome: ${reservationDate.name}`}</p>
           <p>{`CPF: ${reservationDate.cpf}`}</p>
         </div>
 
-        <Link to="/"><button>Voltar para Home</button></Link>
+        <Link to="/" data-test="go-home-btn"><button>Voltar para Home</button></Link>
       </Main>
     </ScreenContainer>
   );

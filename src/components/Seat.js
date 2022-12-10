@@ -27,9 +27,9 @@ export default function Seat({ name, isAvailable, SeatId, ids, setIds,seatList,s
   return (
     <>
     {isAvailable === true ? 
-    <Button buttonColor={UNAVAILABLE} onClick={()=> alert("Esse assento não está disponível")}>{name}</Button>  : !select ? 
-    <Button buttonColor={AVAILABLE} onClick={()=>selectColor(name)}>{name}</Button> : 
-    <Button buttonColor={SELECTED} onClick={()=>selectColor(name)}>{name}</Button>
+    <Button data-test="seat" buttonColor={UNAVAILABLE} onClick={()=> alert("Esse assento não está disponível")}>{name}</Button>  : !select ? 
+    <Button data-test="seat" buttonColor={AVAILABLE} onClick={()=>selectColor(name)}>{name}</Button> : 
+    <Button data-test="seat" buttonColor={SELECTED} onClick={()=>selectColor(name)}>{name}</Button>
     }
       
     </>

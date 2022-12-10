@@ -32,11 +32,11 @@ export default function Schedule() {
       <Title>Selecione o horário</Title>
 
       {sessions.days.map((ses) => (
-        <ScheduleContainer key={ses.id}>
+        <ScheduleContainer key={ses.id} data-test="movie-day">
           {ses.weekday}
           <Button>
             {ses.showtimes.map((time) => (
-              <Link to={`/assentos/${time.id}`} key={time.id}>
+              <Link to={`/assentos/${time.id}`} key={time.id} data-test="showtime">
                 <button >{time.name}</button>
               </Link>
             ))}
@@ -44,7 +44,7 @@ export default function Schedule() {
         </ScheduleContainer>
       ))}
 
-      <Footer>
+      <Footer data-test="footer">
         <Poster>
           <img src={sessions.posterURL} alt="Poster do filme" />
         </Poster>
