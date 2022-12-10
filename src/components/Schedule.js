@@ -35,8 +35,8 @@ export default function Schedule() {
           {ses.weekday}
           <Button>
             {ses.showtimes.map((time) => (
-              <Link to={`/assentos/${time.id}`}>
-                <button key={time.id}>{time.name}</button>
+              <Link to={`/assentos/${time.id}`} key={time.id}>
+                <button >{time.name}</button>
               </Link>
             ))}
           </Button>

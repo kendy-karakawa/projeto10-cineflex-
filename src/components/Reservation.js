@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Seat from "./Seat";
 
 export default function Reservation() {
   const { idSessao } = useParams();
   const [reserve, setReserve] = useState(undefined);
+  const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [ids, setIds] = useState([]);
+  const navigate = useNavigate("/Success");
 
   useEffect(() => {
     const request = axios.get(
@@ -23,6 +27,19 @@ export default function Reservation() {
     return <p>loading...</p>;
   }
 
+  function reservation(event) {
+    event.preventDefault();
+    const reserveDate = { ids, name, cpf };
+    const url =
+      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
+
+    const promise = axios.post(url, reserveDate);
+    promise.then((res) => console.log(res.data));
+    //promise.then(()=> navigate)
+
+    promise.catch((res) => console.log(res.response.data));
+  }
+
   return (
     <ScreenContainer>
       <Link to="/">
@@ -32,7 +49,14 @@ export default function Reservation() {
 
       <SeatList>
         {reserve.seats.map((seat) => (
-          <Seat key={seat.id} name={seat.name} isAvailable={seat.isAvailable} />
+          <Seat
+            key={seat.id}
+            name={seat.name}
+            isAvailable={seat.isAvailable}
+            SeatId={seat.id}
+            ids={ids}
+            setIds={setIds}
+          />
         ))}
       </SeatList>
 
@@ -51,13 +75,28 @@ export default function Reservation() {
         </div>
       </Comment>
 
-      <Data>
-        <p>Nome do comprador:</p>
-        <input placeholder="Digite seu nome..."></input>
-        <p>CPF do comprador:</p>
-        <input placeholder="Digite seu CPF..."></input>
-        <Link to="/sucesso" ><button>Reservar assento(s)</button></Link>
-      </Data>
+      <ReservationFoms onSubmit={reservation}>
+        <label htmlFor="name">Nome do comprador:</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Digite seu nome..."
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <label htmlFor="cpf">CPF do comprador:</label>
+        <input
+          id="cpf"
+          name="cpf"
+          type="text"
+          placeholder="Digite seu CPF..."
+          onChange={(e) => setCpf(e.target.value)}
+          required
+        />
+
+        <button type="submit">Reservar assento(s)</button>
+      </ReservationFoms>
 
       <Footer>
         <Poster>
@@ -239,16 +278,16 @@ const Unavailable = styled.button`
   justify-content: center;
 `;
 
-const Data = styled.div`
+const ReservationFoms = styled.form`
   width: 400px;
   padding: 24px;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-decoration:none;
+  text-decoration: none;
 
-  p {
+  label {
     font-family: "Roboto";
     font-style: normal;
     font-weight: 400;
@@ -273,8 +312,8 @@ const Data = styled.div`
     display: flex;
     align-items: center;
   }
-  a{
-    text-decoration:none;
+  a {
+    text-decoration: none;
   }
   button {
     width: 225px;
@@ -293,10 +332,8 @@ const Data = styled.div`
     border-radius: 3px;
     margin-top: 50px;
     margin-left: 48px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
-
