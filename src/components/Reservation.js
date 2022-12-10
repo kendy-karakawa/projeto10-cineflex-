@@ -93,6 +93,7 @@ export default function Reservation({name,setName,cpf,setCpf,ids,setIds,setReser
           id="name"
           name="name"
           type="text"
+          value={name}
           placeholder="Digite seu nome..."
           onChange={(e) => setName(e.target.value)}
           required
@@ -103,6 +104,7 @@ export default function Reservation({name,setName,cpf,setCpf,ids,setIds,setReser
           id="cpf"
           name="cpf"
           type="text"
+          value={cpf}
           placeholder="Digite seu CPF..."
           onChange={(e) => setCpf(e.target.value)}
           required

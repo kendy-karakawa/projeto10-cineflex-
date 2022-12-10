@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Success({reservationDate}) {
-
-    if (reservationDate.seats === undefined) {
-        return <p>loading...</p>;
-      }  
+export default function Success({ reservationDate }) {
+  if (reservationDate.seats === undefined) {
+    return <p>loading...</p>;
+  }
 
   return (
     <ScreenContainer>
@@ -17,25 +16,34 @@ export default function Success({reservationDate}) {
       </Title>
 
       <Main>
-        <div data-test="movie-info">
+        <div>
           <h1>Filme e sessão</h1>
-          <p>{reservationDate.title}</p>
-          <p>{`${reservationDate.date} ${reservationDate.time}`}</p>
+          <ul data-test="movie-info">
+            <p>{reservationDate.title}</p>
+            <p>{`${reservationDate.date} ${reservationDate.time}`}</p>
+          </ul>
         </div>
 
-        <div data-test="seats-info">
+        <div>
           <h1>Ingressos</h1>
-          {reservationDate.seats.map((id)=> <p key={id}>{`assento ${id}`}</p>)}
-          
+          <ul data-test="seats-info">
+            {reservationDate.seats.map((id) => (
+              <p key={id}>{`assento ${id}`}</p>
+            ))}
+          </ul>
         </div>
 
-        <div data-test="client-info">
+        <div>
           <h1>Comprador</h1>
-          <p>{`Nome: ${reservationDate.name}`}</p>
-          <p>{`CPF: ${reservationDate.cpf}`}</p>
+          <ul data-test="client-info">
+            <p>{`Nome: ${reservationDate.name}`}</p>
+            <p>{`CPF: ${reservationDate.cpf}`}</p>
+          </ul>
         </div>
 
-        <Link to="/" data-test="go-home-btn"><button>Voltar para Home</button></Link>
+        <Link to="/" data-test="go-home-btn">
+          <button>Voltar para Home</button>
+        </Link>
       </Main>
     </ScreenContainer>
   );
@@ -120,10 +128,10 @@ const Main = styled.div`
     letter-spacing: 0.04em;
     color: #293845;
   }
-  a{
-    text-decoration:none;
+  a {
+    text-decoration: none;
   }
-  button{
+  button {
     width: 225px;
     height: 42px;
     font-family: "Roboto";
