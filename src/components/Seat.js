@@ -27,9 +27,9 @@ export default function Seat({ name, isAvailable, SeatId, ids, setIds,seatList,s
   return (
     <>
     {isAvailable === true ? 
-    <Button data-test="seat" buttonColor={UNAVAILABLE} onClick={()=> alert("Esse assento não está disponível")}>{name}</Button>  : !select ? 
-    <Button data-test="seat" buttonColor={AVAILABLE} onClick={()=>selectColor(name)}>{name}</Button> : 
-    <Button data-test="seat" buttonColor={SELECTED} onClick={()=>selectColor(name)}>{name}</Button>
+    <Button data-test="seat" buttonColor={UNAVAILABLE} boderColor={"#F7C52B"} onClick={()=> alert("Esse assento não está disponível")}>{name}</Button>  : !select ? 
+    <Button data-test="seat" buttonColor={AVAILABLE} boderColor={"#7B8B99"} onClick={()=>selectColor(name)}>{name}</Button> : 
+    <Button data-test="seat" buttonColor={SELECTED} boderColor={"#0E7D71"} onClick={()=>selectColor(name)}>{name}</Button>
     }
       
     </>
@@ -43,7 +43,7 @@ const Button = styled.button`
   width: 26px;
   height: 26px;
   background: ${props=> props.buttonColor};
-  border: 1px solid #808f9d;
+  border: 1px solid ${props=> props.boderColor};
   border-radius: 12px;
   display: flex;
   align-items: center;
